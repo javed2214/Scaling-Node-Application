@@ -5,7 +5,9 @@ const os = require('os')
 
 const PORT = process.env.PORT || 4000
 
+// If the request is on master node then we need to create new worker nodes
 if(cluster.isMaster){
+    // Calculating number of CPU cores
     const cpuCount = os.cpus().length
     for(let i = 0; i < cpuCount; i++){
         cluster.fork()
@@ -22,6 +24,8 @@ if(cluster.isMaster){
     })
 }
 
+// Basic Prime Number Code
+// Not Optimmized
 const isPrime = (number) => {
     let flag = true
     for(let i = 2; i < number; i++){
